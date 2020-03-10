@@ -1,0 +1,22 @@
+### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/VisualStudioCode.gitignore
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+
+# Without environment setting file for docker container inside
+.env
+
+# Without database files
+db/data
+
+# Without application files
+app/*
+!app/Dockerfile
+
+
+

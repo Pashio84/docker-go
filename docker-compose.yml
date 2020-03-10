@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: ./app
+      args:
+        SERVICE_NAME: ${SERVICE_NAME}
+    depends_on:
+      - db
+    container_name: ${SERVICE_NAME}_app
+    volumes:
+      - ./app/${SERVICE_NAME}:/go/src/github.com/Pashio84/${SERVICE_NAME}
+    command: sh -c "go run ./migrate/migrate.go && realize start --run --no-config"
+    ports:
+      - 8080:8080
+    links:
+      - db
+  db:
+    image: mysql:8.0.19
+    container_name: ${SERVICE_NAME}_db
+    volumes:
+      - ./db/data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${SERVICE_NAME}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    command: mysqld
